@@ -1,0 +1,15 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: myflix_yulin_dev
+  pool: 5
+  username: Yulin
+  password:
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: myflix_yulin_test
+  pool: 5
+  username: Yulin
+  password:
