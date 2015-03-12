@@ -30,8 +30,8 @@ describe SessionsController do
         expect(response).to redirect_to home_path
       end
 
-      it "sets notice messages" do
-        expect(flash[:notice]).to_not be_nil
+      it "sets success messages" do
+        expect(flash[:success]).to_not be_nil
       end
     end
 
@@ -51,7 +51,7 @@ describe SessionsController do
       end
 
       it "sets error messages" do
-        expect(flash[:error]).to_not be_nil
+        expect(flash[:danger]).to_not be_nil
       end
     end
   end
@@ -66,8 +66,8 @@ describe SessionsController do
       expect(session[:user_id]).to be_nil
     end
 
-    it "sets notice messages" do
-      expect(flash[:notice]).to_not be_nil
+    it "sets success messages" do
+      expect(flash[:success]).to_not be_nil
     end
 
     it "redirects to the root page" do

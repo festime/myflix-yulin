@@ -18,4 +18,10 @@ Video.create(title: "Hunter X Hunter", description: "Five stars", small_cover_ur
 Video.create(title: "Fullmetal Alchemist", description: "Not bad", small_cover_url: "/tmp/fullmetal_alchemist.jpg", large_cover_url: "/tmp/fullmetal_alchemist_large.jpg", category: anime)
 Video.create(title: "Psycho Pass", description: "Amazing", small_cover_url: "/tmp/psycho_pass.jpg", large_cover_url: "/tmp/psycho_pass_large.jpg", category: anime)
 
-User.create(name: "Yulin Chen", email: "yulin@example.com", password: "password")
+yulin = User.create(name: "Yulin Chen",  email: "yulin@example.com", password: "password")
+sofun = User.create(name: "Sofun Huang", email: "sofun@example.com", password: "password")
+
+fate_zero = Video.find_by(title: "Fate Zero")
+Review.create(video: fate_zero, content: Faker::Lorem.paragraph, rate: (1..5).to_a.sample, user: yulin)
+Review.create(video: fate_zero, content: Faker::Lorem.paragraph, rate: (1..5).to_a.sample, user: sofun)
+

@@ -9,17 +9,18 @@ class SessionsController < ApplicationController
 
     if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id
-      redirect_to home_path, notice: "You're signed in, enjoy!"
+      flash[:success] = "You're signed in, enjoy!"
+      redirect_to home_path
 
     else
-      flash[:error] = 'Your email or password is invalid.'
+      flash[:danger] = 'Your email or password is invalid.'
       render :new
     end
   end
 
   def destroy
     session[:user_id] = nil
-    flash[:notice] = "You're signed out."
+    flash[:success] = "You've signed out."
     redirect_to root_path
   end
 end

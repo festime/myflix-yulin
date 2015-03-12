@@ -14,3 +14,9 @@
  *= require whitespace-reset
  *= require_tree .
 */
+
+.field_with_errors {
+  padding: 2px;
+  background-color: red;
+  display: table;
+}
