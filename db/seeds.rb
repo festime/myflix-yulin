@@ -21,7 +21,15 @@ Video.create(title: "Psycho Pass", description: "Amazing", small_cover_url: "/tm
 yulin = User.create(name: "Yulin Chen",  email: "yulin@example.com", password: "password")
 sofun = User.create(name: "Sofun Huang", email: "sofun@example.com", password: "password")
 
-fate_zero = Video.find_by(title: "Fate Zero")
+fate_zero   = Video.find_by(title: "Fate Zero")
+tokyo_ghoul = Video.find_by(title: "Tokyo Ghoul")
 Review.create(video: fate_zero, content: Faker::Lorem.paragraph, rate: (1..5).to_a.sample, user: yulin)
+Review.create(video: tokyo_ghoul, content: Faker::Lorem.paragraph, rate: (1..5).to_a.sample, user: yulin)
 Review.create(video: fate_zero, content: Faker::Lorem.paragraph, rate: (1..5).to_a.sample, user: sofun)
+Review.create(video: tokyo_ghoul, content: Faker::Lorem.paragraph, rate: (1..5).to_a.sample, user: sofun)
+
+QueueItem.create(video: fate_zero, user: yulin)
+QueueItem.create(video: tokyo_ghoul, user: yulin)
+QueueItem.create(video: fate_zero, user: sofun)
+QueueItem.create(video: tokyo_ghoul, user: sofun)
 

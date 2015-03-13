@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe Category do
   it { should have_many(:videos) }
+  it { should validate_presence_of(:name) }
 
   # the points to think:
   # 1. the number of videos 0, 1 ~ 6, 7~

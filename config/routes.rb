@@ -3,7 +3,7 @@ Myflix::Application.routes.draw do
 
   root 'pages#front'
   get 'home', to: 'videos#index'
-  get 'genre/:id', to: 'categories#show'
+  get 'genre/:id', to: 'categories#show', as: :category # make category_path available
 
   resources :videos, only: [:show] do
     collection do
@@ -19,4 +19,6 @@ Myflix::Application.routes.draw do
   get    'sign_in',  to: 'sessions#new'
   post   'sign_in',  to: 'sessions#create'
   delete 'sign_out', to: 'sessions#destroy'
+
+  get 'my_queue', to: 'queue_items#index'
 end
