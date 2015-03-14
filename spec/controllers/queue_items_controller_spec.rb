@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe QueueItemsController do
   describe "GET index" do
-    context "when the use has signed in" do
+    context "when the user has signed in" do
       let(:user) { Fabricate(:user) }
 
       before do
@@ -20,6 +20,57 @@ describe QueueItemsController do
     context "when the user does not sign in" do
       it "redirects to the sign in page" do
         get :index
+        expect(response).to redirect_to sign_in_path
+      end
+    end
+  end
+
+  describe "POST create" do
+    context "when the user has signed in" do
+      let(:user) { Fabricate(:user) }
+      let(:video) { Fabricate(:video) }
+
+      before do
+        session[:user_id] = user.id
+      end
+
+      it "redirects to the my queue page" do
+        post :create, queue_item: Fabricate.attributes_for(:queue_item, user: user, video: video)
+        expect(response).to redirect_to my_queue_path
+      end
+
+      it "creates a queue item" do
+        post :create, queue_item: Fabricate.attributes_for(:queue_item, user: user, video: video)
+        expect(QueueItem.count).to eq(1)
+      end
+
+      it "creates a queue item associated with the user" do
+        post :create, queue_item: Fabricate.attributes_for(:queue_item, user: user, video: video)
+        expect(QueueItem.first.user).to eq(user)
+      end
+
+      it "creates a queue item associated with the video" do
+        post :create, queue_item: Fabricate.attributes_for(:queue_item, user: user, video: video)
+        expect(QueueItem.first.video).to eq(video)
+      end
+
+      it "puts the video to the last position of the user's queue" do
+        2.times { Fabricate(:queue_item, user: user, video: Fabricate(:video)) }
+        post :create, queue_item: Fabricate.attributes_for(:queue_item, user: user, video: video)
+        queue_item = QueueItem.find_by(user: user, video: video)
+        expect(queue_item.position).to eq(3)
+      end
+
+      it "does not put the video to the queue if the video has already been in the queue" do
+        Fabricate(:queue_item, user: user, video: video)
+        post :create, queue_item: Fabricate.attributes_for(:queue_item, user: user, video: video)
+        expect(user.queue_items.count).to eq(1)
+      end
+    end
+
+    context "when the user does not sign in" do
+      it "redirects to the sign in page" do
+        post :create, queue_item: Fabricate.attributes_for(:queue_item)
         expect(response).to redirect_to sign_in_path
       end
     end
