@@ -75,4 +75,47 @@ describe QueueItemsController do
       end
     end
   end
+
+  describe "DELETE destroy" do
+    context "when the user has signed in" do
+      let(:user) { Fabricate(:user) }
+      let(:video) { Fabricate(:video) }
+
+      before do
+        session[:user_id] = user.id
+      end
+
+      it "redirects to the my queue page" do
+        queue_item = Fabricate(:queue_item, user: user, video: video)
+        delete :destroy, id: queue_item.id
+        expect(response).to redirect_to my_queue_path
+      end
+
+      it "deletes the queue item" do
+        queue_item = Fabricate(:queue_item, user: user, video: video)
+        delete :destroy, id: queue_item.id
+        expect(QueueItem.count).to eq(0)
+      end
+
+      it "sets success messages" do
+        queue_item = Fabricate(:queue_item, user: user, video: video)
+        delete :destroy, id: queue_item.id
+        expect(flash[:success]).to_not be_nil
+      end
+
+      it "does not delete the queue item if the item is not in the user's queue" do
+        another_user = Fabricate(:user)
+        queue_item = Fabricate(:queue_item, user: another_user, video: video)
+        delete :destroy, id: queue_item.id
+        expect(queue_item.reload).to_not be_nil
+      end
+    end
+
+    context "when the user does not sign in" do
+      it "redirects to the sign in page" do
+        delete :destroy, id: 1
+        expect(response).to redirect_to sign_in_path
+      end
+    end
+  end
 end

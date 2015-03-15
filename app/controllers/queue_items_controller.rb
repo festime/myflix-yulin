@@ -11,6 +11,13 @@ class QueueItemsController < ApplicationController
     redirect_to my_queue_path
   end
 
+  def destroy
+    queue_item = QueueItem.find(params[:id])
+    queue_item.delete if current_user.queue_items.include?(queue_item)
+    flash[:success] = "You have successfully removed the video from your queue."
+    redirect_to my_queue_path
+  end
+
   private
     def queue_a_video(video)
       unless current_user_queued_video?(video)

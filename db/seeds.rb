@@ -28,8 +28,8 @@ Review.create(video: tokyo_ghoul, content: Faker::Lorem.paragraph, rate: (1..5).
 Review.create(video: fate_zero, content: Faker::Lorem.paragraph, rate: (1..5).to_a.sample, user: sofun)
 Review.create(video: tokyo_ghoul, content: Faker::Lorem.paragraph, rate: (1..5).to_a.sample, user: sofun)
 
-QueueItem.create(video: fate_zero, user: yulin)
-QueueItem.create(video: tokyo_ghoul, user: yulin)
-QueueItem.create(video: fate_zero, user: sofun)
-QueueItem.create(video: tokyo_ghoul, user: sofun)
+QueueItem.create(video: fate_zero, user: yulin, position: 1)
+QueueItem.create(video: tokyo_ghoul, user: yulin, position: 2)
+QueueItem.create(video: fate_zero, user: sofun, position: 1)
+QueueItem.create(video: tokyo_ghoul, user: sofun, position: 2)
 
