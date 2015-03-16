@@ -118,4 +118,95 @@ describe QueueItemsController do
       end
     end
   end
+
+  describe "PUT update_queue_items" do
+    context "when the user has signed in" do
+      let(:user) { Fabricate(:user) }
+
+      before do
+        session[:user_id] = user.id
+      end
+
+      context "when the positions are valid" do
+        before do
+          3.times { Fabricate(:queue_item, user: user, video: Fabricate(:video)) }
+        end
+
+        it "redirects to the my queue page" do
+          new_positions = [1, 2, 3].shuffle
+          queue_items_param = user.queue_items.map do |queue_item|
+            {id: queue_item.id, rate: queue_item.rate, position: new_positions.shift}
+          end
+
+          put :update_queue_items, queue_items: queue_items_param
+
+          expect(response).to redirect_to my_queue_path
+        end
+
+        it "updates the positions of queue items" do
+          new_positions = [1, 2, 3].shuffle
+          queue_items_param = user.queue_items.map do |queue_item|
+            {id: queue_item.id, rate: queue_item.rate, position: new_positions.shift}
+          end
+
+          put :update_queue_items, queue_items: queue_items_param
+
+          queue_items_param.each do |param|
+            expect(QueueItem.find(param[:id]).position).to eq(param[:position])
+          end
+        end
+
+        it "orders the queue items by positions ASC from 1" do # 1, 2, 3, and so on; not 2, 3, 4
+          new_positions = [2, 3, 4].shuffle
+          queue_items_param = user.queue_items.map do |queue_item|
+            {id: queue_item.id, rate: queue_item.rate, position: new_positions.shift}
+          end
+
+          put :update_queue_items, queue_items: queue_items_param
+
+          expect(user.reload.queue_items.map(&:position)).to eq([1, 2, 3])
+        end
+      end
+
+      context "when the positions are invalid" do
+        let(:invalid_positions) { [[0, 1, 2], ['', 5, 6], [-1, 1, 2], ['a', 2, 3], [1, 1, 2]] }
+
+        before do
+          [1, 2, 3].each do |number|
+            Fabricate(:queue_item, user: user, video: Fabricate(:video), position: number)
+          end
+        end
+
+        it "keeps the positions of queue items unchanged" do
+          invalid_positions.each do |new_positions|
+            queue_items_param = user.queue_items.map do |queue_item|
+              {id: queue_item.id, rate: queue_item.rate, position: new_positions.shift}
+            end
+
+            put :update_queue_items, queue_items: queue_items_param
+
+            expect(QueueItem.first(3).map(&:position)).to eq([1, 2, 3])
+          end
+        end
+      end
+
+      it "does not update the position of other user's queue items" do
+        another_user = Fabricate(:user)
+        [1, 2, 3].each do |number|
+          Fabricate(:queue_item, video: Fabricate(:video),
+                    user: another_user, position: number)
+        end
+        queue_item = another_user.queue_items.first
+
+        put :update_queue_items, queue_items: [{id: queue_item.id, rate: queue_item.rate, position: 4}]
+
+        expect(queue_item.reload.position).to eq(1)
+      end
+    end
+
+    it "redirects to the sign in page if the user does not sign in" do
+      put :update_queue_items, queue_items: [{}]
+      expect(response).to redirect_to sign_in_path
+    end
+  end
 end

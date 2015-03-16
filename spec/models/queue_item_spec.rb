@@ -3,6 +3,7 @@ require 'spec_helper'
 describe QueueItem do
   it { should belong_to(:user) }
   it { should belong_to(:video) }
+  it { should validate_numericality_of(:position).is_greater_than(0) }
 
   describe "#video_title" do
     it "returns the title of the video" do
@@ -42,6 +43,26 @@ describe QueueItem do
       queue_item = Fabricate(:queue_item, user: Fabricate(:user),
                              video: Fabricate(:video, category: category))
       expect(queue_item.category).to eq(category)
+    end
+  end
+
+  describe "#rate=" do
+    context "when the user has reviewed the video" do
+      it "updates the rate of the review" do
+        user  = Fabricate(:user)
+        video = Fabricate(:video)
+        review = Fabricate(:review, user: user, video: video, rate: 1)
+        queue_item = Fabricate(:queue_item, user: user, video: video)
+        queue_item.rate = 5
+        expect(review.reload.rate).to eq(5)
+      end
+    end
+
+    context "when the user has not reviewed the video" do
+      it "doesn't raise an error" do
+        queue_item = Fabricate(:queue_item, user: Fabricate(:user), video: Fabricate(:video))
+        expect { queue_item.rate = 5 }.to_not raise_error
+      end
     end
   end
 end
