@@ -8,7 +8,6 @@ class QueueItem < ActiveRecord::Base
   validates :position, numericality: { :greater_than => 0 }
 
   def rate
-    review = Review.where(user_id: user.id, video_id: video.id).first
     return (review ? review.rate : nil)
   end
 
@@ -17,7 +16,17 @@ class QueueItem < ActiveRecord::Base
   end
 
   def rate=(new_rate)
-    review = Review.find_by(user_id: user.id, video_id: video.id)
-    review.update_attribute(:rate, new_rate) if review
+    if review
+      review.update_attribute(:rate, new_rate)
+    else
+      new_review = Review.new(rate: new_rate, user: user, video: video)
+      new_review.save(validate: false)
+    end
   end
+
+  private
+
+    def review
+      @review ||= Review.find_by(user_id: user.id, video_id: video.id)
+    end
 end

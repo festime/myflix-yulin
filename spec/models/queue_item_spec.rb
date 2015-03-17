@@ -56,12 +56,22 @@ describe QueueItem do
         queue_item.rate = 5
         expect(review.reload.rate).to eq(5)
       end
+
+      it "clears the rate of the review if the empty option is selected" do
+        user  = Fabricate(:user)
+        video = Fabricate(:video)
+        review = Fabricate(:review, user: user, video: video, rate: 1)
+        queue_item = Fabricate(:queue_item, user: user, video: video)
+        queue_item.rate = ""
+        expect(review.reload.rate).to eq(nil)
+      end
     end
 
     context "when the user has not reviewed the video" do
-      it "doesn't raise an error" do
+      it "creates a new review with empty content" do
         queue_item = Fabricate(:queue_item, user: Fabricate(:user), video: Fabricate(:video))
-        expect { queue_item.rate = 5 }.to_not raise_error
+        queue_item.rate = 5
+        expect(queue_item.reload.rate).to eq(5)
       end
     end
   end

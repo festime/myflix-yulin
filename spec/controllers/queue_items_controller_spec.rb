@@ -109,6 +109,14 @@ describe QueueItemsController do
         delete :destroy, id: queue_item.id
         expect(queue_item.reload).to_not be_nil
       end
+
+      it "orders the queue items by positions ASC from 1" do # 1, 2, 3, and so on
+        [1, 2, 3].each do |number|
+          Fabricate(:queue_item, user: user, video: Fabricate(:video), position: number)
+        end
+        delete :destroy, id: QueueItem.find_by(user_id: user.id, position: 2).id
+        expect(user.queue_items.map(&:position)).to eq([1, 2])
+      end
     end
 
     context "when the user does not sign in" do
