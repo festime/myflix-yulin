@@ -21,14 +21,15 @@ group :development do
 end
 
 group :development, :test do
-  gem 'pry'
-  gem 'pry-nav'
   gem 'rspec-rails', '2.99'
 end
 
 group :test do
   gem 'database_cleaner', '1.2.0'
   gem 'shoulda-matchers', require: false
+  gem 'pry'
+  gem 'pry-nav'
+  gem 'capybara'
 end
 
 group :production do
