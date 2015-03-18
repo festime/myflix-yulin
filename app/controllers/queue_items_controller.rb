@@ -43,14 +43,10 @@ class QueueItemsController < ApplicationController
 
   private
     def queue_a_video(video)
-      unless current_user_queued_video?(video)
+      unless current_user.queued_video?(video)
         QueueItem.create(user: current_user, video: video,
                          position: new_queue_item_position)
       end
-    end
-
-    def current_user_queued_video?(video)
-      current_user.queue_items.map(&:video).include? video
     end
 
     def new_queue_item_position

@@ -30,6 +30,7 @@ group :test do
   gem 'pry'
   gem 'pry-nav'
   gem 'capybara'
+  gem 'launchy'
 end
 
 group :production do
