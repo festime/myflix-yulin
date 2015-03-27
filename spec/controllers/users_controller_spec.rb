@@ -51,4 +51,20 @@ describe UsersController do
       end
     end
   end
+
+  describe "GET show" do
+    context "when the user has signed in" do
+      before { set_current_user }
+
+      it "sets @user" do
+        another_user = Fabricate(:user)
+        get :show, id: another_user.id
+        expect(assigns(:user)).to eq(another_user)
+      end
+    end
+
+    it_behaves_like "require_sign_in" do
+      let(:action) { get :show, id: 1 }
+    end
+  end
 end

@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
 
   has_secure_password
   has_many :queue_items, ->{ order("position ASC") }
+  has_many :reviews, -> { order("created_at DESC") }
 
   def normalize_position_of_queue_items
     queue_items.each_with_index do |queue_item, index|

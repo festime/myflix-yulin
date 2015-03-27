@@ -13,7 +13,7 @@ Myflix::Application.routes.draw do
     resources :reviews, only: [:create]
   end
 
-  resources :users, only: [:create]
+  resources :users, only: [:create, :show]
   get 'register', to: 'users#new'
 
   get    'sign_in',  to: 'sessions#new'
