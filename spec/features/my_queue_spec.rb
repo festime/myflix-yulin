@@ -28,7 +28,7 @@ feature "My Queue" do
   end
 
   def add_video_to_my_queue(video)
-    visit video_path(video)
+    click_video_link_on_home_page(video)
     click_link '+ My Queue'
   end
 
