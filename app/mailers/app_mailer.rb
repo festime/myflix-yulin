@@ -1,8 +1,6 @@
 class AppMailer < ActionMailer::Base
-  default :from => "myflix@example.com"
-
-  def welcome_messages(user)
+  def send_welcome_email(user)
     @user = user
-    mail(:to => user.email, :subject => "Welcome to MyFlix")
+    mail(:to => user.email, from: "info@myflix.com", :subject => "Welcome to MyFlix!")
   end
 end
