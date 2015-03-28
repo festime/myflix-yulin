@@ -20,6 +20,8 @@ Video.create(title: "Psycho Pass", description: "Amazing", small_cover_url: "/tm
 
 yulin = User.create(name: "Yulin Chen",  email: "yulin@example.com", password: "password")
 sofun = User.create(name: "Sofun Huang", email: "sofun@example.com", password: "password")
+winson = User.create(name: "Winson Lee", email: "winson@example.com", password: "password")
+chris = User.create(name: "Chris Lee", email: "chris@example.com", password: "password")
 
 fate_zero   = Video.find_by(title: "Fate Zero")
 tokyo_ghoul = Video.find_by(title: "Tokyo Ghoul")
@@ -32,4 +34,10 @@ QueueItem.create(video: fate_zero, user: yulin, position: 1)
 QueueItem.create(video: tokyo_ghoul, user: yulin, position: 2)
 QueueItem.create(video: fate_zero, user: sofun, position: 1)
 QueueItem.create(video: tokyo_ghoul, user: sofun, position: 2)
+
+Relationship.create(leader: yulin, follower: sofun)
+Relationship.create(leader: yulin, follower: winson)
+Relationship.create(leader: sofun, follower: yulin)
+Relationship.create(leader: winson, follower: yulin)
+Relationship.create(leader: chris, follower: yulin)
 
