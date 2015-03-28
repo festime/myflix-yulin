@@ -26,7 +26,7 @@ describe RelationshipsController do
       before { set_current_user }
 
       it "redirects to the people page" do
-        relationship = Fabricate(:relationship)
+        relationship = Fabricate(:relationship, follower: current_user)
         delete :destroy, id: relationship.id
         expect(response).to redirect_to people_path
       end
@@ -58,27 +58,23 @@ describe RelationshipsController do
         expect(response).to redirect_to people_path
       end
 
-      it "creates a relationship" do
-        post :create, leader_id: Fabricate(:user)
-        expect(Relationship.count).to eq(1)
-      end
-
-      it "creates a relationship in which follower is the sign-in user" do
-        post :create, leader_id: Fabricate(:user)
-        expect(Relationship.first.follower).to eq(current_user)
-      end
-
-      it "creates a relationship in which leader is the specified user" do
+      it "creates a relationship that the current user follows the leader" do
         leader = Fabricate(:user)
-        post :create, leader_id: leader.id
+        post :create, leader_id: leader
+        expect(Relationship.first.follower).to eq(current_user)
         expect(Relationship.first.leader).to eq(leader)
       end
 
-      it "does not create a relationship if such an relationship exists" do
+      it "does not create a relationship if the current user is following the leader" do
         leader = Fabricate(:user)
         Fabricate(:relationship, leader: leader, follower: current_user)
         post :create, leader_id: leader.id
         expect(Relationship.count).to eq(1)
+      end
+
+      it "does not allow one to follow themselves" do
+        post :create, leader_id: current_user.id
+        expect(Relationship.count).to eq(0)
       end
     end
   end

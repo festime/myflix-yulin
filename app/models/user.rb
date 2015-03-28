@@ -22,4 +22,8 @@ class User < ActiveRecord::Base
   def following?(another_user)
     Relationship.find_by(leader_id: another_user.id, follower_id: self.id)
   end
+
+  def can_follow?(another_user)
+    !self.following?(another_user) && self != another_user
+  end
 end

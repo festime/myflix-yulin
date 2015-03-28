@@ -8,7 +8,7 @@ class RelationshipsController < ApplicationController
   def create
     leader = User.find(params[:leader_id])
 
-    unless current_user.following?(leader)
+    if current_user.can_follow?(leader)
       Relationship.create(follower: current_user, leader: leader)
     end
 
