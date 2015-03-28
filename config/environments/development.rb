@@ -18,4 +18,8 @@ Myflix::Application.configure do
   config.assets.debug = true
 
   config.eager_load = false
+
+  # Now any email will pop up in your browser instead of being sent.
+  # The messages are stored in tmp/letter_opener.
+  config.action_mailer.delivery_method = :letter_opener
 end
