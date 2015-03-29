@@ -16,16 +16,30 @@ describe UsersController do
 
   describe "POST create" do
     context "with valid input" do
-      before do
-        post :create, user: Fabricate.attributes_for(:user)
-      end
+      let(:user_params) { Fabricate.attributes_for(:user) }
 
       it "creates a user" do
+        post :create, user: user_params
         expect(User.count).to eq(1)
       end
 
       it "redirects to the sign in page" do
+        post :create, user: user_params
         expect(response).to redirect_to sign_in_path
+      end
+
+      context "sending emails" do
+        after { ActionMailer::Base.deliveries.clear }
+
+        it "sends an email to the new user" do
+          post :create, user: user_params
+          expect(ActionMailer::Base.deliveries.last.to).to eq([user_params[:email]])
+        end
+
+        it "contains the right content" do
+          post :create, user: user_params
+          expect(ActionMailer::Base.deliveries.last.body).to include("Welcome to MyFlix, #{user_params[:name]}")
+        end
       end
     end
 
@@ -48,6 +62,10 @@ describe UsersController do
         expect(assigns(:user).name).to eq(user_params[:name])
         expect(assigns(:user).email).to eq(user_params[:email])
         expect(assigns(:user).password).to eq(user_params[:password])
+      end
+
+      it "does not send an email" do
+        expect(ActionMailer::Base.deliveries).to be_empty
       end
     end
   end
