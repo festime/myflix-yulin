@@ -27,4 +27,9 @@ Myflix::Application.routes.draw do
 
   get 'people',   to: 'relationships#index'
   resources :relationships, only: [:destroy, :create]
+
+  get 'forgot_password', to: 'reset_passwords#forgot_password'
+  post 'confirm_password_reset', to: 'reset_passwords#confirm_password_reset'
+  get 'reset_password/:token', to: 'reset_passwords#new', as: :reset_password
+  post 'reset_password/:token', to: 'reset_passwords#create'
 end
