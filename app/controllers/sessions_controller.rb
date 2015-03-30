@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
 
     if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id
-      flash[:success] = "You're signed in, enjoy!"
+      flash[:success] = "You have successfully signed in, enjoy!"
       redirect_to home_path
 
     else
