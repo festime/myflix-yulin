@@ -15,6 +15,7 @@ Myflix::Application.routes.draw do
 
   resources :users, only: [:create, :show]
   get 'register', to: 'users#new'
+  get 'register/:token', to: 'users#new_with_token', as: :register_with_token
 
   get    'sign_in',  to: 'sessions#new'
   post   'sign_in',  to: 'sessions#create'
@@ -28,8 +29,10 @@ Myflix::Application.routes.draw do
   get 'people',   to: 'relationships#index'
   resources :relationships, only: [:destroy, :create]
 
-  get 'forgot_password', to: 'reset_passwords#forgot_password'
+  get  'forgot_password',        to: 'reset_passwords#forgot_password'
   post 'confirm_password_reset', to: 'reset_passwords#confirm_password_reset'
-  get 'reset_password/:token', to: 'reset_passwords#new', as: :reset_password
-  post 'reset_password/:token', to: 'reset_passwords#create'
+  get  'reset_password/:token',  to: 'reset_passwords#new', as: :reset_password
+  post 'reset_password/:token',  to: 'reset_passwords#create'
+
+  resources :invitations, only: [:new, :create]
 end

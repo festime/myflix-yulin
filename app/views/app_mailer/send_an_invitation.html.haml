@@ -1,0 +1,6 @@
+!!! 5
+%html(lang="en-US")
+  %body
+    %p Hello, #{@invitation.addressee_name}, I'm #{@invitation.sender.name}.
+    %p= @invitation.message
+    %p Click the link to register: #{link_to "Join MyFlix", register_with_token_url(token: @invitation.token)}

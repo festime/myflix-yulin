@@ -15,6 +15,12 @@ describe SessionsController do
   end
 
   describe "POST create" do
+    it "redirects to the home page when the user has signed in" do
+      set_current_user
+      post :create, email: "", password: ""
+      expect(response).to redirect_to home_path
+    end
+
     context "with valid credential" do
       let(:user) { Fabricate(:user) }
 

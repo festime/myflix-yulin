@@ -17,4 +17,8 @@ class ApplicationController < ActionController::Base
   def current_user
     @current_user ||= User.find(session[:user_id])
   end
+
+  def reject_signed_in_user
+    redirect_to home_path if signed_in?
+  end
 end

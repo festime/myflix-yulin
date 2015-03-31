@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
+  before_action :reject_signed_in_user, only: [:new, :create]
 
   def new
-    redirect_to home_path if signed_in?
   end
 
   def create

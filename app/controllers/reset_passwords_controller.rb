@@ -41,10 +41,4 @@ class ResetPasswordsController < ApplicationController
       return
     end
   end
-
-  private
-
-  def reject_signed_in_user
-    redirect_to home_path if signed_in?
-  end
 end
