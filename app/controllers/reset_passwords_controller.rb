@@ -34,7 +34,7 @@ class ResetPasswordsController < ApplicationController
 
     if user
       user.update_attribute(:token, SecureRandom.urlsafe_base64)
-      AppMailer.send_password_reset_email(user).deliver
+      AppMailer.delay.send_password_reset_email(user)
     else
       flash[:danger] = params[:email].blank? ? "Your email is invalid." : "The email address is not registered."
       redirect_to forgot_password_path

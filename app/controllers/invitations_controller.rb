@@ -11,7 +11,7 @@ class InvitationsController < ApplicationController
 
     if !params[:invitation][:addressee_email].blank? && !addressee
       @invitation.save
-      AppMailer.send_an_invitation(@invitation).deliver
+      AppMailer.delay.send_an_invitation(@invitation)
       flash[:success] = "You successfully sent an invitation to your friend."
       redirect_to home_path
     else
