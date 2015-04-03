@@ -20,8 +20,8 @@ Myflix::Application.configure do
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    :user_name => 'user_name',
-    :password => 'password',
+    :user_name => ENV['user_name'],
+    :password => ENV['password'],
     :address => 'mailtrap.io',
     :domain => 'mailtrap.io',
     :port => '2525',
