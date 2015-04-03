@@ -16,13 +16,13 @@ gem 'faker'
 gem 'figaro'
 gem 'sidekiq'
 gem 'puma'
+gem 'paratrooper'
 
 group :development do
   gem 'thin'
   gem "better_errors"
   gem "binding_of_caller"
   gem 'letter_opener'
-  gem 'paratrooper'
 end
 
 group :development, :test do
