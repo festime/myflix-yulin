@@ -18,6 +18,7 @@ Myflix::Application.configure do
 
   config.active_support.deprecation = :notify
 
+  config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     :user_name => 'user_name',
     :password => 'password',
@@ -27,7 +28,7 @@ Myflix::Application.configure do
     :authentication => :cram_md5
   }
 
-  ActionMailer::Base.delivery_method = :smtp
-
   config.action_mailer.default_url_options = {:host => "myflix-yulin-staging.herokuapp.com"}
+
+  config.log_level = :debug
 end
