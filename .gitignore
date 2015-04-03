@@ -16,3 +16,6 @@
 
 # Ignore application configuration
 /config/application.yml
+
+# the file that Redis saves snapshots of the dataset on disk
+/dump.rdb

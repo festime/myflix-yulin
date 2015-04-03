@@ -15,6 +15,7 @@ gem 'fabrication'
 gem 'faker'
 gem 'figaro'
 gem 'sidekiq'
+gem 'puma'
 
 group :development do
   gem 'thin'
@@ -39,6 +40,4 @@ end
 
 group :production do
   gem 'rails_12factor'
-  gem 'puma'
 end
-
