@@ -18,15 +18,6 @@ Myflix::Application.configure do
 
   config.active_support.deprecation = :notify
 
-  ActionMailer::Base.smtp_settings = {
-    :port           => ENV['MAILGUN_SMTP_PORT'],
-    :address        => ENV['MAILGUN_SMTP_SERVER'],
-    :user_name      => ENV['MAILGUN_SMTP_LOGIN'],
-    :password       => ENV['MAILGUN_SMTP_PASSWORD'],
-    :domain         => 'yourapp.heroku.com',
-    :authentication => :plain,
-  }
-
   config.action_mailer.smtp_settings = {
     :user_name => 'user_name',
     :password => 'password',
@@ -38,5 +29,5 @@ Myflix::Application.configure do
 
   ActionMailer::Base.delivery_method = :smtp
 
-  config.action_mailer.default_url_options = {:host => "myflix-yulin.herokuapp.com"}
+  config.action_mailer.default_url_options = {:host => "myflix-yulin-staging.herokuapp.com"}
 end
