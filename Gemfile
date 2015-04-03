@@ -16,6 +16,7 @@ gem 'faker'
 gem 'figaro'
 gem 'sidekiq'
 gem 'puma'
+gem 'paratrooper'
 
 group :development do
   gem 'thin'
