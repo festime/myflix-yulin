@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150330061407) do
+ActiveRecord::Schema.define(version: 20150408033045) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,8 @@ ActiveRecord::Schema.define(version: 20150330061407) do
     t.string   "token"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "addressee_name"
+    t.text     "message"
   end
 
   create_table "queue_items", force: true do |t|
