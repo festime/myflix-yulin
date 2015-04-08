@@ -23,10 +23,7 @@ class InvitationsController < ApplicationController
   private
 
   def invitation_params
-    sub_params = {
-                   sender: current_user,
-                   token: SecureRandom.urlsafe_base64,
-                 }
+    sub_params = { sender: current_user }
     params.require(:invitation).permit(:addressee_email, :addressee_name, :message).merge(sub_params)
   end
 end
