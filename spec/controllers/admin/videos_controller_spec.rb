@@ -33,7 +33,7 @@ describe Admin::VideosController do
 
       context "with valid input" do
         after do
-          FileUtils.rm_rf(Dir["#{Rails.root}/public/uploads"])
+          delete_files_uploaded_by_tests
         end
 
         it "creates a video with small cover and large_cover" do

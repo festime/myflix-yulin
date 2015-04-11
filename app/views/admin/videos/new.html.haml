@@ -19,7 +19,7 @@
 
             .form-group
               .control-label.col-sm-3
-                = f.label :category
+                = f.label :category_id, "Category"
               .col-sm-6
                 = f.select :category_id, options_for_select(Category.all.map {|category| [category.name, category.id]}), {}, class: 'form-control'
 
