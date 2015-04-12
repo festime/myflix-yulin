@@ -11,4 +11,5 @@
           = hidden_field_tag :token, @token
         %fieldset.actions.control-group.col-sm-offset-2
           .controls
-            = f.submit "Sign Up", class: "btn btn-default"
+            %script.stripe-button{"data-amount" => "999", "data-description" => "Sign Up Charge for MyFlix ($9.99)", "data-key" => "#{ENV['STRIPE_TEST_PUBLISHABLE_KEY']}", "data-name" => "MyFlix Sign Up", :src => "https://checkout.stripe.com/checkout.js"}
+              :cdata
