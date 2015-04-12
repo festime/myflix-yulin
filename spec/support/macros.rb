@@ -2,6 +2,10 @@ def set_current_user
   session[:user_id] = Fabricate(:user).id
 end
 
+def set_admin_current_user
+  session[:user_id] = Fabricate(:user, admin: true).id
+end
+
 def current_user
   User.find(session[:user_id])
 end
@@ -26,4 +30,8 @@ end
 def click_video_link_on_home_page(video)
   visit home_path
   find(:xpath, "//a[@href='#{video_path(video)}']").click
+end
+
+def delete_files_uploaded_by_tests
+  FileUtils.rm_rf(Dir["#{Rails.root}/public/uploads"])
 end

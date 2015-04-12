@@ -18,6 +18,10 @@ gem 'sidekiq'
 gem 'puma'
 gem 'paratrooper'
 gem "sentry-raven"
+gem 'carrierwave'
+gem "mini_magick"
+gem "fog"
+gem 'fog-aws'
 
 group :development do
   gem 'thin'

@@ -28,6 +28,8 @@ feature "User invites a friend" do
 
   def friend_accepts_invitation
     open_email(@addressee.email)
+    expect(current_email).to have_content(@addressee.name)
+
     current_email.click_link "Join MyFlix"
 
     fill_in "Password",  with: @addressee.password
