@@ -19,3 +19,6 @@
 
 # the file that Redis saves snapshots of the dataset on disk
 /dump.rdb
+
+# the uploaded file will not be checked
+/public/tmp/.*
