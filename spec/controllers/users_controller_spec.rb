@@ -15,6 +15,10 @@ describe UsersController do
   end
 
   describe "POST create" do
+    let(:stripe_helper) { StripeMock.create_test_helper }
+    before { StripeMock.start }
+    after { StripeMock.stop }
+
     it "redirects to the home page when the user has signed in" do
       set_current_user
       post :create, user: Fabricate.attributes_for(:user)

@@ -32,9 +32,11 @@ feature "User invites a friend" do
 
     current_email.click_link "Join MyFlix"
 
+    StripeMock.start
     fill_in "Password",  with: @addressee.password
     fill_in "Full Name", with: @addressee.name
     click_button "Sign Up"
+    StripeMock.stop
   end
 
   def sender_should_follow_addressee
