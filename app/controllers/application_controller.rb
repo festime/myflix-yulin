@@ -21,4 +21,11 @@ class ApplicationController < ActionController::Base
   def reject_signed_in_user
     redirect_to home_path if signed_in?
   end
+
+  def require_admin
+    unless current_user.admin?
+      flash[:danger] = "You're not authorized to do that."
+      redirect_to home_path
+    end
+  end
 end

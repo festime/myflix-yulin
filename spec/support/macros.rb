@@ -33,5 +33,5 @@ def click_video_link_on_home_page(video)
 end
 
 def delete_files_uploaded_by_tests
-  FileUtils.rm_rf(Dir["#{Rails.root}/public/uploads"])
+  FileUtils.rm_rf(Dir["#{Rails.root}/public/test/uploads"])
 end

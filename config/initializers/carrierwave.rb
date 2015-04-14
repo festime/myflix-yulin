@@ -1,5 +1,5 @@
 CarrierWave.configure do |config|
-  if Rails.env.test?
+  if Rails.env.test? || Rails.env.development?
     config.storage = :file
     config.enable_processing = false
   else
@@ -15,8 +15,6 @@ CarrierWave.configure do |config|
       config.fog_directory  = ENV['AWS_S3_BUCKET_PRODUCTION']
     elsif Rails.env.staging?
       config.fog_directory  = ENV['AWS_S3_BUCKET_STAGING']
-    elsif Rails.env.development?
-      config.fog_directory  = ENV['AWS_S3_BUCKET_DEVELOPMENT']
     end
   end
 end

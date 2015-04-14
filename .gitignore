@@ -21,4 +21,4 @@
 /dump.rdb
 
 # the uploaded file will not be checked
-/public/tmp/.*
+/public/uploads/.*

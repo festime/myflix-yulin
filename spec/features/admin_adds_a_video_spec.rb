@@ -30,11 +30,11 @@ feature "Administrator adds a video" do
 
   def regular_users_can_watch_the_video
     sign_in
-    expect(page).to have_selector("img[@src='/uploads/attack_on_titan.jpg']")
+    expect(page).to have_selector("img[@src='/test/uploads/attack_on_titan.jpg']")
 
     attack_on_titan = Video.first
     click_video_link_on_home_page(attack_on_titan)
-    expect(page).to have_selector("img[@src='/uploads/attack_on_titan_large.jpg']")
+    expect(page).to have_selector("img[@src='/test/uploads/attack_on_titan_large.jpg']")
     expect(page).to have_selector("a[@href='http://example.com/videos/1']")
   end
 end

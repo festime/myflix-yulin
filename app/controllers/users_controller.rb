@@ -68,7 +68,7 @@ class UsersController < ApplicationController
           :description => "Sign up charge for #{@user.email}."
         )
       rescue Stripe::CardError => e
-        # The card has been declined
+        flash[:danger] = e.message
       end
     end
 end

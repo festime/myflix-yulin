@@ -11,7 +11,7 @@ require 'csv'
 anime = Category.create(name: "Anime")
 Category.create(name: "Movie")
 
-videos_data = CSV.read "db/videos_information.csv"
+videos_data = CSV.read Rails.root.join "lib/videos_information.csv"
 headers = videos_data.shift.map {|header| header.to_sym}
 array_of_hashes = videos_data.map {|video_data| Hash[*headers.zip(video_data).flatten] }
 

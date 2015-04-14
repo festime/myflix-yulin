@@ -3,14 +3,18 @@
 class LargeCoverUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
 
-  if Rails.env.test?
+  if Rails.env.test? || Rails.env.development?
     storage :file
   else
     storage :fog
   end
 
   def store_dir
-    "uploads"
+    if Rails.env.test?
+      "test/uploads"
+    else
+      "uploads"
+    end
   end
 
   def extension_white_list
