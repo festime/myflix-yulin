@@ -22,5 +22,7 @@ feature "User reset password" do
 
     expect(page).to have_content("success")
     expect(current_path).to eq(home_path)
+
+    clear_email
   end
 end

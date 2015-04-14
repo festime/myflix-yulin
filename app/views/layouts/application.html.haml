@@ -10,6 +10,7 @@
   %body
     %header
       = render 'shared/header'
+      = yield :stripe
     %section.content.clearfix
       = render 'shared/messages'
       = yield

@@ -18,6 +18,12 @@ gem 'sidekiq'
 gem 'puma'
 gem 'paratrooper'
 gem "sentry-raven"
+gem 'carrierwave'
+gem "mini_magick"
+gem "fog"
+gem 'fog-aws'
+gem 'stripe'
+gem 'stripe-ruby-mock'
 
 group :development do
   gem 'thin'

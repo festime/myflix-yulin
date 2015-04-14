@@ -21,4 +21,5 @@
               %a(href="#") Account
               %a(href="#") Plan and Billing
               = link_to "Invite a friend", new_invitation_path
+              = link_to "Add a video", new_admin_video_path if current_user.admin?
               = link_to "Sign Out", sign_out_path, method: :delete

@@ -10,6 +10,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
+      handle_credit_card_charge
       handle_invitation
 
       AppMailer.delay.send_welcome_email(@user)
@@ -51,6 +52,23 @@ class UsersController < ApplicationController
         @user.follows(sender)
         sender.follows(@user)
         invitation.delete
+      end
+    end
+
+    def handle_credit_card_charge
+      Stripe.api_key = ENV["STRIPE_TEST_SECRET_KEY"]
+
+      token = params[:stripeToken]
+
+      begin
+        charge = Stripe::Charge.create(
+          :amount => 999, # amount in cents, again
+          :currency => "usd",
+          :source => token,
+          :description => "Sign up charge for #{@user.email}."
+        )
+      rescue Stripe::CardError => e
+        flash[:danger] = e.message
       end
     end
 end

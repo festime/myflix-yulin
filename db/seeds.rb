@@ -6,20 +6,27 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+require 'csv'
+
 anime = Category.create(name: "Anime")
 Category.create(name: "Movie")
 
-Video.create(title: "Attack On Titan", description: "Top 1 anime in 2013", small_cover_url: "/tmp/attack_on_titan.jpg", large_cover_url: "/tmp/attack_on_titan_large.jpg", category: anime)
-Video.create(title: "Grande Road", description: "A passionate anime", small_cover_url: "/tmp/grande_road.jpg", category: anime)
-Video.create(title: "Tokyo Ghoul", description: "Amazing...", small_cover_url: "/tmp/tokyo_ghoul.jpg", category: anime)
-Video.create(title: "Kiseji", description: "Owesome!", small_cover_url: "/tmp/kiseji.jpg", category: anime)
-Video.create(title: "Fate Zero", description: "Good", small_cover_url: "/tmp/fate_zero.jpg", large_cover_url: "/tmp/fate_zero_large.jpg", category: anime)
-Video.create(title: "Hunter X Hunter", description: "Five stars", small_cover_url: "/tmp/hunter_hunter.jpg", category: anime)
-Video.create(title: "Fullmetal Alchemist", description: "Not bad", small_cover_url: "/tmp/fullmetal_alchemist.jpg", large_cover_url: "/tmp/fullmetal_alchemist_large.jpg", category: anime)
-Video.create(title: "Psycho Pass", description: "Amazing", small_cover_url: "/tmp/psycho_pass.jpg", large_cover_url: "/tmp/psycho_pass_large.jpg", category: anime)
+videos_data = CSV.read Rails.root.join "lib/videos_information.csv"
+headers = videos_data.shift.map {|header| header.to_sym}
+array_of_hashes = videos_data.map {|video_data| Hash[*headers.zip(video_data).flatten] }
 
-yulin = User.create(name: "Yulin Chen",  email: "yulin@example.com", password: "password")
-sofun = User.create(name: "Sofun Huang", email: "sofun@example.com", password: "password")
+directory = "#{Rails.root}/public/tmp/"
+
+array_of_hashes.each do |video_params|
+  video_params[:small_cover] = File.open(directory + video_params[:small_cover])
+  video_params[:large_cover] = File.open(directory + video_params[:large_cover]) if video_params[:large_cover]
+  video_params[:category] = Category.find_by(name: video_params[:category])
+
+  Video.create(video_params)
+end
+
+yulin = User.create(name: "Yulin Chen",  email: "yulin@example.com", password: "password", admin: true)
+sofun = User.create(name: "Sofun Huang", email: "sofun@example.com", password: "password", admin: true)
 winson = User.create(name: "Winson Lee", email: "winson@example.com", password: "password")
 chris = User.create(name: "Chris Lee", email: "chris@example.com", password: "password")
 

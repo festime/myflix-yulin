@@ -35,4 +35,8 @@ Myflix::Application.routes.draw do
   post 'reset_password/:token',  to: 'reset_passwords#create'
 
   resources :invitations, only: [:new, :create]
+
+  namespace :admin do
+    resources :videos, only: [:new, :create]
+  end
 end
