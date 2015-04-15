@@ -1,0 +1,234 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.stripe.com/v1/tokens
+    body:
+      encoding: US-ASCII
+      string: card[number]=4242424242424242&card[exp_month]=4&card[exp_year]=2018&card[cvc]=314
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Stripe/v1 RubyBindings/1.18.0
+      Authorization:
+      - Bearer sk_test_HBGqICPTuTaM9AoQVEMs4DhY
+      Content-Type:
+      - application/x-www-form-urlencoded
+      X-Stripe-Client-User-Agent:
+      - '{"bindings_version":"1.18.0","lang":"ruby","lang_version":"2.1.5 p273 (2014-11-13)","platform":"x86_64-darwin14.0","publisher":"stripe","uname":"Darwin
+        wifi45-072.niu.edu.tw 13.4.0 Darwin Kernel Version 13.4.0: Wed Dec 17 19:05:52
+        PST 2014; root:xnu-2422.115.10~1/RELEASE_X86_64 x86_64"}'
+      Content-Length:
+      - '81'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Wed, 15 Apr 2015 01:58:02 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '727'
+      Connection:
+      - keep-alive
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Methods:
+      - GET, POST, HEAD, OPTIONS, DELETE
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Max-Age:
+      - '300'
+      Cache-Control:
+      - no-cache, no-store
+      Request-Id:
+      - req_xkfYSP1jCg6bJYOq
+      Stripe-Version:
+      - '2015-01-26'
+      Strict-Transport-Security:
+      - max-age=31556926; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: |
+        {
+          "id": "tok_15rfmwD95LOA8PWpa9aWl28W",
+          "livemode": false,
+          "created": 1429063082,
+          "used": false,
+          "object": "token",
+          "type": "card",
+          "card": {
+            "id": "card_15rfmwD95LOA8PWpXoy7IgY9",
+            "object": "card",
+            "last4": "4242",
+            "brand": "Visa",
+            "funding": "credit",
+            "exp_month": 4,
+            "exp_year": 2018,
+            "fingerprint": "Vp5hLO9Uixc1jjPR",
+            "country": "US",
+            "name": null,
+            "address_line1": null,
+            "address_line2": null,
+            "address_city": null,
+            "address_state": null,
+            "address_zip": null,
+            "address_country": null,
+            "cvc_check": "unchecked",
+            "address_line1_check": null,
+            "address_zip_check": null,
+            "dynamic_last4": null
+          },
+          "client_ip": "120.101.45.72"
+        }
+    http_version: 
+  recorded_at: Wed, 15 Apr 2015 01:58:02 GMT
+- request:
+    method: post
+    uri: https://api.stripe.com/v1/charges
+    body:
+      encoding: US-ASCII
+      string: amount=999&currency=usd&source=tok_15rfmwD95LOA8PWpa9aWl28W&description=Sign%20up%20charge%20for%20maye_west%40metzwhite.biz
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Stripe/v1 RubyBindings/1.18.0
+      Authorization:
+      - Bearer sk_test_HBGqICPTuTaM9AoQVEMs4DhY
+      Content-Type:
+      - application/x-www-form-urlencoded
+      X-Stripe-Client-User-Agent:
+      - '{"bindings_version":"1.18.0","lang":"ruby","lang_version":"2.1.5 p273 (2014-11-13)","platform":"x86_64-darwin14.0","publisher":"stripe","uname":"Darwin
+        wifi45-072.niu.edu.tw 13.4.0 Darwin Kernel Version 13.4.0: Wed Dec 17 19:05:52
+        PST 2014; root:xnu-2422.115.10~1/RELEASE_X86_64 x86_64"}'
+      Content-Length:
+      - '124'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Wed, 15 Apr 2015 01:58:05 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '1989'
+      Connection:
+      - keep-alive
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Methods:
+      - GET, POST, HEAD, OPTIONS, DELETE
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Max-Age:
+      - '300'
+      Cache-Control:
+      - no-cache, no-store
+      Request-Id:
+      - req_P2wFm2pvEOaQEp4C
+      Stripe-Version:
+      - '2015-01-26'
+      Strict-Transport-Security:
+      - max-age=31556926; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: |
+        {
+          "id": "ch_15rfmzD95LOA8PWpVk6WKY7B",
+          "object": "charge",
+          "created": 1429063085,
+          "livemode": false,
+          "paid": true,
+          "status": "paid",
+          "amount": 999,
+          "currency": "usd",
+          "refunded": false,
+          "source": {
+            "id": "card_15rfmwD95LOA8PWpXoy7IgY9",
+            "object": "card",
+            "last4": "4242",
+            "brand": "Visa",
+            "funding": "credit",
+            "exp_month": 4,
+            "exp_year": 2018,
+            "fingerprint": "Vp5hLO9Uixc1jjPR",
+            "country": "US",
+            "name": null,
+            "address_line1": null,
+            "address_line2": null,
+            "address_city": null,
+            "address_state": null,
+            "address_zip": null,
+            "address_country": null,
+            "cvc_check": "pass",
+            "address_line1_check": null,
+            "address_zip_check": null,
+            "dynamic_last4": null,
+            "metadata": {},
+            "customer": null
+          },
+          "captured": true,
+          "card": {
+            "id": "card_15rfmwD95LOA8PWpXoy7IgY9",
+            "object": "card",
+            "last4": "4242",
+            "brand": "Visa",
+            "funding": "credit",
+            "exp_month": 4,
+            "exp_year": 2018,
+            "fingerprint": "Vp5hLO9Uixc1jjPR",
+            "country": "US",
+            "name": null,
+            "address_line1": null,
+            "address_line2": null,
+            "address_city": null,
+            "address_state": null,
+            "address_zip": null,
+            "address_country": null,
+            "cvc_check": "pass",
+            "address_line1_check": null,
+            "address_zip_check": null,
+            "dynamic_last4": null,
+            "metadata": {},
+            "customer": null
+          },
+          "balance_transaction": "txn_15rfmzD95LOA8PWpM1phEVdt",
+          "failure_message": null,
+          "failure_code": null,
+          "amount_refunded": 0,
+          "customer": null,
+          "invoice": null,
+          "description": "Sign up charge for maye_west@metzwhite.biz",
+          "dispute": null,
+          "metadata": {},
+          "statement_descriptor": null,
+          "fraud_details": {},
+          "receipt_email": null,
+          "receipt_number": null,
+          "shipping": null,
+          "application_fee": null,
+          "refunds": {
+            "object": "list",
+            "total_count": 0,
+            "has_more": false,
+            "url": "/v1/charges/ch_15rfmzD95LOA8PWpVk6WKY7B/refunds",
+            "data": []
+          }
+        }
+    http_version: 
+  recorded_at: Wed, 15 Apr 2015 01:58:05 GMT
+recorded_with: VCR 2.9.3

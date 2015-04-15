@@ -24,6 +24,8 @@ gem "fog"
 gem 'fog-aws'
 gem 'stripe'
 gem 'stripe-ruby-mock'
+gem 'vcr'
+gem 'webmock'
 
 group :development do
   gem 'thin'

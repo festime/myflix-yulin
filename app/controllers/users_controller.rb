@@ -56,19 +56,15 @@ class UsersController < ApplicationController
     end
 
     def handle_credit_card_charge
-      Stripe.api_key = ENV["STRIPE_TEST_SECRET_KEY"]
-
       token = params[:stripeToken]
+      charge = StripeWrapper::Charge.create(
+        :amount => 999, # amount in cents, again
+        :source => token,
+        :description => "Sign up charge for #{@user.email}."
+      )
 
-      begin
-        charge = Stripe::Charge.create(
-          :amount => 999, # amount in cents, again
-          :currency => "usd",
-          :source => token,
-          :description => "Sign up charge for #{@user.email}."
-        )
-      rescue Stripe::CardError => e
-        flash[:danger] = e.message
+      unless charge.successful?
+        flash[:danger] = charge.error_message
       end
     end
 end
