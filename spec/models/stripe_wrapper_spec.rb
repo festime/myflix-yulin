@@ -2,10 +2,6 @@ require 'spec_helper'
 
 describe StripeWrapper do
   describe StripeWrapper::Charge, :vcr do
-    before do
-      StripeWrapper::Charge.set_api_key
-    end
-
     context "with valid card" do
       let(:card_number) { "4242424242424242" }
 

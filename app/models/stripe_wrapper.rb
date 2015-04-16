@@ -26,9 +26,5 @@ module StripeWrapper
     def error_message
       response.message
     end
-
-    def self.set_api_key
-      Stripe.api_key = ENV["STRIPE_TEST_SECRET_KEY"]
-    end
   end
 end
