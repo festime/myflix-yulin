@@ -9,15 +9,17 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
 
-    ActiveRecord::Base.transaction do
-      @user.save!
+    if @user.save
       handle_credit_card_charge
       handle_invitation
       AppMailer.delay.send_welcome_email(@user)
+      flash[:success] = "Thank you for registering with MyFlix. Please sign in now."
       redirect_to sign_in_path
+
+    else
+      flash[:danger] = "Invalid user info, please check the error messages."
+      render :new
     end
-  rescue => exception
-    render :new
   end
 
   def show
@@ -65,7 +67,6 @@ class UsersController < ApplicationController
 
       unless charge.successful?
         flash[:danger] = charge.error_message
-        raise
       end
     end
 end
