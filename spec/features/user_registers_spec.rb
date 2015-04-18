@@ -22,8 +22,8 @@ feature "User registers", :js, :vcr do
   end
 
   scenario "with invalid user info and invalid card" do
-    user_registers(user_info_state: :invalid, card_state: :valid)
-    expect(page).to have_content("Invalid user info, please check the error messages.")
+    user_registers(user_info_state: :invalid, card_state: :invalid)
+    expect(page).to have_content("Your card number is incorrect.")
   end
 
   scenario "with invalid user info and declined card" do
@@ -32,11 +32,10 @@ feature "User registers", :js, :vcr do
   end
 
   def user_registers(user_info_state:, card_state:)
-    #ignore_warning_messages_from_capybara_webkit
+    ignore_warning_messages_from_capybara_webkit
 
     set_user_inputs(user_info_state: user_info_state, card_state: card_state)
 
-    puts "### Before: #{User.count} ###"
     visit register_path
     fill_in "Email Address", with: @user_params[:email]
     fill_in "Password", with: @user_params[:password]
@@ -46,15 +45,14 @@ feature "User registers", :js, :vcr do
     select "4 - April", from: "expiration[month]"
     select "2017", from: "expiration[year]"
     click_button "Sign Up"
-    puts "### After: #{User.count} ###"
   end
 
   def set_user_inputs(user_info_state:, card_state:)
     if card_state == :valid
       @card_number = "4242424242424242"
-    elsif card_state == :invalid
-      @card_number = "4000000000000002"
     elsif card_state == :declined
+      @card_number = "4000000000000002"
+    elsif card_state == :invalid
       @card_number = "4242424242424241"
     end
 

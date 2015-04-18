@@ -9,15 +9,20 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
 
-    if @user.save
-      handle_credit_card_charge
+    if @user.valid?
+      charge = handle_credit_card_charge
+      unless charge.successful?
+        flash[:danger] = charge.error_message
+        render :new and return
+      end
+      @user.save
       handle_invitation
       AppMailer.delay.send_welcome_email(@user)
       flash[:success] = "Thank you for registering with MyFlix. Please sign in now."
       redirect_to sign_in_path
 
     else
-      flash[:danger] = "Invalid user info, please check the error messages."
+      flash.now[:danger] = "Invalid user info, please check the error messages."
       render :new
     end
   end
@@ -64,9 +69,5 @@ class UsersController < ApplicationController
         :source => token,
         :description => "Sign up charge for #{@user.email}."
       )
-
-      unless charge.successful?
-        flash[:danger] = charge.error_message
-      end
     end
 end
