@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature "User registers", :js, :vcr do
+feature "User registers", :js, :vcr, driver: :selenium do
   scenario "with valid user info and valid card" do
     user_registers(user_info_state: :valid, card_state: :valid)
     expect(page).to have_content("Thank you for registering with MyFlix. Please sign in now.")
@@ -32,8 +32,6 @@ feature "User registers", :js, :vcr do
   end
 
   def user_registers(user_info_state:, card_state:)
-    ignore_warning_messages_from_capybara_webkit
-
     set_user_inputs(user_info_state: user_info_state, card_state: card_state)
 
     visit register_path
@@ -61,10 +59,5 @@ feature "User registers", :js, :vcr do
       email: "yulin@example.com",
       password: "password"
     }
-  end
-
-  def ignore_warning_messages_from_capybara_webkit
-    page.driver.allow_url("https://api.stripe.com/v1/tokens")
-    page.driver.allow_url("https://js.stripe.com/v2/")
   end
 end
