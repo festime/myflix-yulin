@@ -8,6 +8,8 @@ module StripeWrapper
     end
 
     def self.create(options = {})
+      set_api_key
+
       begin
         response = Stripe::Charge.create(amount: options[:amount],
                                          currency: "usd",
@@ -25,6 +27,10 @@ module StripeWrapper
 
     def error_message
       response.message
+    end
+
+    def self.set_api_key
+      Stripe.api_key = ENV["STRIPE_TEST_SECRET_KEY"]
     end
   end
 end
