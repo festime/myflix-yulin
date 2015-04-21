@@ -9,13 +9,20 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
 
-    if @user.save
-      handle_credit_card_charge
+    if @user.valid?
+      charge = handle_credit_card_charge
+      unless charge.successful?
+        flash[:danger] = charge.error_message
+        render :new and return
+      end
+      @user.save
       handle_invitation
-
       AppMailer.delay.send_welcome_email(@user)
+      flash[:success] = "Thank you for registering with MyFlix. Please sign in now."
       redirect_to sign_in_path
+
     else
+      flash.now[:danger] = "Invalid user info, please check the error messages."
       render :new
     end
   end
@@ -56,19 +63,11 @@ class UsersController < ApplicationController
     end
 
     def handle_credit_card_charge
-      Stripe.api_key = ENV["STRIPE_TEST_SECRET_KEY"]
-
       token = params[:stripeToken]
-
-      begin
-        charge = Stripe::Charge.create(
-          :amount => 999, # amount in cents, again
-          :currency => "usd",
-          :source => token,
-          :description => "Sign up charge for #{@user.email}."
-        )
-      rescue Stripe::CardError => e
-        flash[:danger] = e.message
-      end
+      charge = StripeWrapper::Charge.create(
+        :amount => 999, # amount in cents, again
+        :source => token,
+        :description => "Sign up charge for #{@user.email}."
+      )
     end
 end
