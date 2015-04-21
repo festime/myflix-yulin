@@ -11,11 +11,6 @@ feature "User registers", :js, :vcr do
   end
 
   scenario "with valid user info and invalid card" do
-    puts "Rails.env = #{Rails.env}"
-    puts "#" * 15
-    puts "ENV[STRIPE_TEST_SECRET_KEY] = #{ENV['STRIPE_TEST_SECRET_KEY']}"
-    puts "ENV[STRIPE_TEST_PUBLISHABLE_KEY] = #{ENV['STRIPE_TEST_PUBLISHABLE_KEY']}"
-    puts "#" * 15
     user_registers(user_info_state: :valid, card_state: :invalid)
     expect(page).to have_content("Your card number is incorrect.")
   end
@@ -26,11 +21,6 @@ feature "User registers", :js, :vcr do
   end
 
   scenario "with invalid user info and valid card" do
-    puts "Rails.env = #{Rails.env}"
-    puts "#" * 15
-    puts "ENV[STRIPE_TEST_SECRET_KEY] = #{ENV['STRIPE_TEST_SECRET_KEY']}"
-    puts "ENV[STRIPE_TEST_PUBLISHABLE_KEY] = #{ENV['STRIPE_TEST_PUBLISHABLE_KEY']}"
-    puts "#" * 15
     user_registers(user_info_state: :invalid, card_state: :valid)
     expect(page).to have_content("Invalid user info, please check the error messages.")
   end
@@ -46,6 +36,10 @@ feature "User registers", :js, :vcr do
   end
 
   def user_registers(user_info_state:, card_state:)
+    page.driver.allow_url("https://js.stripe.com/v2/")
+    page.driver.allow_url("js.stripe.com")
+    page.driver.allow_url("https://api.stripe.com/v1/tokens")
+
     set_user_inputs(user_info_state: user_info_state, card_state: card_state)
 
     visit register_path
