@@ -8,21 +8,14 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    result = UserRegistration.new(@user, params[:token], params[:stripeToken]).call
 
-    if @user.valid?
-      charge = handle_credit_card_charge
-      unless charge.successful?
-        flash[:danger] = charge.error_message
-        render :new and return
-      end
-      @user.save
-      handle_invitation
-      AppMailer.delay.send_welcome_email(@user)
-      flash[:success] = "Thank you for registering with MyFlix. Please sign in now."
+    if result.successful?
+      flash[:success] = result.message
       redirect_to sign_in_path
 
     else
-      flash.now[:danger] = "Invalid user info, please check the error messages."
+      flash.now[:danger] = result.message
       render :new
     end
   end
@@ -49,25 +42,5 @@ class UsersController < ApplicationController
 
     def user_params
       params.require(:user).permit(:name, :email, :password)
-    end
-
-    def handle_invitation
-      invitation = Invitation.find_by(token: params[:token])
-
-      if invitation
-        sender = User.find(invitation.sender_id)
-        @user.follows(sender)
-        sender.follows(@user)
-        invitation.delete
-      end
-    end
-
-    def handle_credit_card_charge
-      token = params[:stripeToken]
-      charge = StripeWrapper::Charge.create(
-        :amount => 999, # amount in cents, again
-        :source => token,
-        :description => "Sign up charge for #{@user.email}."
-      )
     end
 end
