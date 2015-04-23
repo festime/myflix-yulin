@@ -2,14 +2,11 @@
   .container
     .row
       .video_large_cover.col-sm-7.col-sm-offset-1
-        - if @video.large_cover_url
-          %img(src="#{@video.large_cover_url}")
-        - else
-          %img(src="http://dummyimage.com/665x375/000000/00a2ff")
+        %img(src="#{@video_decorator.display_large_cover}")
       .video_info.col-sm-3
         %header
           %h3= "#{@video.title}"
-          %span Rating: 4.5/5.0
+          %span Rating: #{@video_decorator.average_rate}
         %p= "#{@video.description}"
         .actions
           = link_to "Watch Now", @video.url, class: "btn btn-primary"
