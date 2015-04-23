@@ -5,8 +5,10 @@ describe UserRegistration do
     let(:user) { Fabricate.build(:user) }
 
     before do
-      charge = double('charge', successful?: true)
-      expect(StripeWrapper::Charge).to receive(:create).and_return(charge)
+      #charge = double('charge', successful?: true)
+      #expect(StripeWrapper::Charge).to receive(:create).and_return(charge)
+      result = double('result', successful?: true)
+      expect(StripeWrapper::Customer).to receive(:create).and_return(result)
     end
 
     after { ActionMailer::Base.deliveries.clear }

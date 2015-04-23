@@ -27,4 +27,31 @@ module StripeWrapper
       response.message
     end
   end
+
+  class Customer
+    attr_reader :status, :error_message
+
+    def initialize(status, exception = nil)
+      @status = status
+      @error_message = exception.message if exception.respond_to? :message
+    end
+
+    def self.create(options)
+      begin
+        customer = Stripe::Customer.create(
+          :source => options[:source],
+          :plan => "basic",
+          :email => "#{options[:email]}",
+          :description => "Subscripttion of '#{options[:name]}'"
+        )
+        new(:success)
+      rescue Stripe::CardError => e
+        new(:failure, e)
+      end
+    end
+
+    def successful?
+      (status == :success ? true : false)
+    end
+  end
 end

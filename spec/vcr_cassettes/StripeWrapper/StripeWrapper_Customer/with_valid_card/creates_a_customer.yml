@@ -2,10 +2,10 @@
 http_interactions:
 - request:
     method: post
-    uri: https://api.stripe.com/v1/customers
+    uri: https://api.stripe.com/v1/tokens
     body:
       encoding: US-ASCII
-      string: source=tok_15ucpDD95LOA8PWpGBQfvHuC&plan=basic&email=yulin%40example.com&description=Subscripttion%20of%20'Yulin%20Chen'
+      string: card[number]=4242424242424242&card[exp_month]=4&card[exp_year]=2018&card[cvc]=314
     headers:
       Accept:
       - "*/*; q=0.5, application/xml"
@@ -22,7 +22,7 @@ http_interactions:
         wifi43-086.niu.edu.tw 13.4.0 Darwin Kernel Version 13.4.0: Wed Dec 17 19:05:52
         PST 2014; root:xnu-2422.115.10~1/RELEASE_X86_64 x86_64"}'
       Content-Length:
-      - '120'
+      - '81'
   response:
     status:
       code: 200
@@ -31,11 +31,11 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Thu, 23 Apr 2015 05:24:37 GMT
+      - Thu, 23 Apr 2015 06:12:08 GMT
       Content-Type:
       - application/json
       Content-Length:
-      - '3221'
+      - '727'
       Connection:
       - keep-alive
       Access-Control-Allow-Credentials:
@@ -49,7 +49,97 @@ http_interactions:
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_ohuPCpuFohyOjY5U
+      - req_d5gBZ8f2va24jQp6
+      Stripe-Version:
+      - '2015-01-26'
+      Strict-Transport-Security:
+      - max-age=31556926; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: |
+        {
+          "id": "tok_15udZED95LOA8PWpyNpLQr85",
+          "livemode": false,
+          "created": 1429769528,
+          "used": false,
+          "object": "token",
+          "type": "card",
+          "card": {
+            "id": "card_15udZED95LOA8PWp1HmSe0pE",
+            "object": "card",
+            "last4": "4242",
+            "brand": "Visa",
+            "funding": "credit",
+            "exp_month": 4,
+            "exp_year": 2018,
+            "fingerprint": "Vp5hLO9Uixc1jjPR",
+            "country": "US",
+            "name": null,
+            "address_line1": null,
+            "address_line2": null,
+            "address_city": null,
+            "address_state": null,
+            "address_zip": null,
+            "address_country": null,
+            "cvc_check": "unchecked",
+            "address_line1_check": null,
+            "address_zip_check": null,
+            "dynamic_last4": null
+          },
+          "client_ip": "120.101.43.86"
+        }
+    http_version: 
+  recorded_at: Thu, 23 Apr 2015 06:12:08 GMT
+- request:
+    method: post
+    uri: https://api.stripe.com/v1/customers
+    body:
+      encoding: US-ASCII
+      string: source=tok_15udZED95LOA8PWpyNpLQr85&plan=basic&email=vincent%40luettgen.net&description=Subscripttion%20of%20'Miss%20Karelle%20Crist'
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Stripe/v1 RubyBindings/1.18.0
+      Authorization:
+      - Bearer sk_test_HBGqICPTuTaM9AoQVEMs4DhY
+      Content-Type:
+      - application/x-www-form-urlencoded
+      X-Stripe-Client-User-Agent:
+      - '{"bindings_version":"1.18.0","lang":"ruby","lang_version":"2.1.5 p273 (2014-11-13)","platform":"x86_64-darwin14.0","publisher":"stripe","uname":"Darwin
+        wifi43-086.niu.edu.tw 13.4.0 Darwin Kernel Version 13.4.0: Wed Dec 17 19:05:52
+        PST 2014; root:xnu-2422.115.10~1/RELEASE_X86_64 x86_64"}'
+      Content-Length:
+      - '133'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Thu, 23 Apr 2015 06:12:10 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '3232'
+      Connection:
+      - keep-alive
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Methods:
+      - GET, POST, HEAD, OPTIONS, DELETE
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Max-Age:
+      - '300'
+      Cache-Control:
+      - no-cache, no-store
+      Request-Id:
+      - req_0Ts2pn5w64Aggyro
       Stripe-Version:
       - '2015-01-26'
       Strict-Transport-Security:
@@ -59,21 +149,21 @@ http_interactions:
       string: |
         {
           "object": "customer",
-          "created": 1429766676,
-          "id": "cus_66qW7IiW2mr5wb",
+          "created": 1429769529,
+          "id": "cus_66rHb1k6fDvAlr",
           "livemode": false,
-          "description": "Subscripttion of 'Yulin Chen'",
-          "email": "yulin@example.com",
+          "description": "Subscripttion of 'Miss Karelle Crist'",
+          "email": "vincent@luettgen.net",
           "delinquent": false,
           "metadata": {},
           "subscriptions": {
             "object": "list",
             "total_count": 1,
             "has_more": false,
-            "url": "/v1/customers/cus_66qW7IiW2mr5wb/subscriptions",
+            "url": "/v1/customers/cus_66rHb1k6fDvAlr/subscriptions",
             "data": [
               {
-                "id": "sub_66qW7RdBK7OfNr",
+                "id": "sub_66rHLM8GwOacQa",
                 "plan": {
                   "interval": "month",
                   "name": "Basic",
@@ -89,12 +179,12 @@ http_interactions:
                   "statement_descriptor": null
                 },
                 "object": "subscription",
-                "start": 1429766676,
+                "start": 1429769529,
                 "status": "active",
-                "customer": "cus_66qW7IiW2mr5wb",
+                "customer": "cus_66rHb1k6fDvAlr",
                 "cancel_at_period_end": false,
-                "current_period_start": 1429766676,
-                "current_period_end": 1432358676,
+                "current_period_start": 1429769529,
+                "current_period_end": 1432361529,
                 "ended_at": null,
                 "trial_start": null,
                 "trial_end": null,
@@ -114,16 +204,16 @@ http_interactions:
             "object": "list",
             "total_count": 1,
             "has_more": false,
-            "url": "/v1/customers/cus_66qW7IiW2mr5wb/cards",
+            "url": "/v1/customers/cus_66rHb1k6fDvAlr/cards",
             "data": [
               {
-                "id": "card_15ucpDD95LOA8PWpxwXxTdkc",
+                "id": "card_15udZED95LOA8PWp1HmSe0pE",
                 "object": "card",
                 "last4": "4242",
                 "brand": "Visa",
                 "funding": "credit",
                 "exp_month": 4,
-                "exp_year": 2017,
+                "exp_year": 2018,
                 "fingerprint": "Vp5hLO9Uixc1jjPR",
                 "country": "US",
                 "name": null,
@@ -138,25 +228,25 @@ http_interactions:
                 "address_zip_check": null,
                 "dynamic_last4": null,
                 "metadata": {},
-                "customer": "cus_66qW7IiW2mr5wb"
+                "customer": "cus_66rHb1k6fDvAlr"
               }
             ]
           },
-          "default_card": "card_15ucpDD95LOA8PWpxwXxTdkc",
+          "default_card": "card_15udZED95LOA8PWp1HmSe0pE",
           "sources": {
             "object": "list",
             "total_count": 1,
             "has_more": false,
-            "url": "/v1/customers/cus_66qW7IiW2mr5wb/sources",
+            "url": "/v1/customers/cus_66rHb1k6fDvAlr/sources",
             "data": [
               {
-                "id": "card_15ucpDD95LOA8PWpxwXxTdkc",
+                "id": "card_15udZED95LOA8PWp1HmSe0pE",
                 "object": "card",
                 "last4": "4242",
                 "brand": "Visa",
                 "funding": "credit",
                 "exp_month": 4,
-                "exp_year": 2017,
+                "exp_year": 2018,
                 "fingerprint": "Vp5hLO9Uixc1jjPR",
                 "country": "US",
                 "name": null,
@@ -171,12 +261,12 @@ http_interactions:
                 "address_zip_check": null,
                 "dynamic_last4": null,
                 "metadata": {},
-                "customer": "cus_66qW7IiW2mr5wb"
+                "customer": "cus_66rHb1k6fDvAlr"
               }
             ]
           },
-          "default_source": "card_15ucpDD95LOA8PWpxwXxTdkc"
+          "default_source": "card_15udZED95LOA8PWp1HmSe0pE"
         }
     http_version: 
-  recorded_at: Thu, 23 Apr 2015 05:24:37 GMT
+  recorded_at: Thu, 23 Apr 2015 06:12:10 GMT
 recorded_with: VCR 2.9.3

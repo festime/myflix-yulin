@@ -2,10 +2,10 @@
 http_interactions:
 - request:
     method: post
-    uri: https://api.stripe.com/v1/charges
+    uri: https://api.stripe.com/v1/customers
     body:
       encoding: US-ASCII
-      string: amount=999&currency=usd&source=tok_15soglD95LOA8PWpwu7rVokO&description=Sign%20up%20charge%20for%20
+      string: source=tok_15ucp3D95LOA8PWpEurQUEiP&plan=basic&email=yulin%40example.com&description=Subscripttion%20of%20'Yulin%20Chen'
     headers:
       Accept:
       - "*/*; q=0.5, application/xml"
@@ -19,10 +19,10 @@ http_interactions:
       - application/x-www-form-urlencoded
       X-Stripe-Client-User-Agent:
       - '{"bindings_version":"1.18.0","lang":"ruby","lang_version":"2.1.5 p273 (2014-11-13)","platform":"x86_64-darwin14.0","publisher":"stripe","uname":"Darwin
-        wifi45-036.niu.edu.tw 13.4.0 Darwin Kernel Version 13.4.0: Wed Dec 17 19:05:52
+        wifi43-086.niu.edu.tw 13.4.0 Darwin Kernel Version 13.4.0: Wed Dec 17 19:05:52
         PST 2014; root:xnu-2422.115.10~1/RELEASE_X86_64 x86_64"}'
       Content-Length:
-      - '99'
+      - '120'
   response:
     status:
       code: 402
@@ -31,11 +31,11 @@ http_interactions:
       Server:
       - nginx
       Date:
-      - Sat, 18 Apr 2015 05:40:24 GMT
+      - Thu, 23 Apr 2015 05:24:27 GMT
       Content-Type:
       - application/json
       Content-Length:
-      - '162'
+      - '134'
       Connection:
       - keep-alive
       Access-Control-Allow-Credentials:
@@ -49,7 +49,7 @@ http_interactions:
       Cache-Control:
       - no-cache, no-store
       Request-Id:
-      - req_VgMAfM2i0sYxN8T1
+      - req_v5YvBJuIDnEokX86
       Stripe-Version:
       - '2015-01-26'
     body:
@@ -59,10 +59,10 @@ http_interactions:
           "error": {
             "message": "Your card was declined.",
             "type": "card_error",
-            "code": "card_declined",
-            "charge": "ch_15sogmD95LOA8PWpJGCt6oXS"
+            "param": "",
+            "code": "card_declined"
           }
         }
     http_version: 
-  recorded_at: Sat, 18 Apr 2015 05:40:24 GMT
+  recorded_at: Thu, 23 Apr 2015 05:24:27 GMT
 recorded_with: VCR 2.9.3

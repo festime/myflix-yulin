@@ -37,10 +37,10 @@ class UserRegistration
 
     def credit_card_charge
       token = stripe_token
-      charge = StripeWrapper::Charge.create(
-        :amount => 999, # amount in cents, again
-        :source => token,
-        :description => "Sign up charge for #{user.email}."
+      customer = StripeWrapper::Customer.create(
+        source: token,
+        email: user.email,
+        name: user.name
       )
     end
 

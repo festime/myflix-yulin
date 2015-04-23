@@ -1,0 +1,158 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.stripe.com/v1/tokens
+    body:
+      encoding: US-ASCII
+      string: card[number]=4000000000000002&card[exp_month]=4&card[exp_year]=2018&card[cvc]=314
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Stripe/v1 RubyBindings/1.18.0
+      Authorization:
+      - Bearer sk_test_HBGqICPTuTaM9AoQVEMs4DhY
+      Content-Type:
+      - application/x-www-form-urlencoded
+      X-Stripe-Client-User-Agent:
+      - '{"bindings_version":"1.18.0","lang":"ruby","lang_version":"2.1.5 p273 (2014-11-13)","platform":"x86_64-darwin14.0","publisher":"stripe","uname":"Darwin
+        wifi43-086.niu.edu.tw 13.4.0 Darwin Kernel Version 13.4.0: Wed Dec 17 19:05:52
+        PST 2014; root:xnu-2422.115.10~1/RELEASE_X86_64 x86_64"}'
+      Content-Length:
+      - '81'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Thu, 23 Apr 2015 06:12:05 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '727'
+      Connection:
+      - keep-alive
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Methods:
+      - GET, POST, HEAD, OPTIONS, DELETE
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Max-Age:
+      - '300'
+      Cache-Control:
+      - no-cache, no-store
+      Request-Id:
+      - req_Pf5LD1jVJx2fOWp5
+      Stripe-Version:
+      - '2015-01-26'
+      Strict-Transport-Security:
+      - max-age=31556926; includeSubDomains
+    body:
+      encoding: UTF-8
+      string: |
+        {
+          "id": "tok_15udZBD95LOA8PWpNHEh84OU",
+          "livemode": false,
+          "created": 1429769525,
+          "used": false,
+          "object": "token",
+          "type": "card",
+          "card": {
+            "id": "card_15udZBD95LOA8PWp8I2vzoJd",
+            "object": "card",
+            "last4": "0002",
+            "brand": "Visa",
+            "funding": "credit",
+            "exp_month": 4,
+            "exp_year": 2018,
+            "fingerprint": "fX4o2X0noYhwqiLH",
+            "country": "US",
+            "name": null,
+            "address_line1": null,
+            "address_line2": null,
+            "address_city": null,
+            "address_state": null,
+            "address_zip": null,
+            "address_country": null,
+            "cvc_check": "unchecked",
+            "address_line1_check": null,
+            "address_zip_check": null,
+            "dynamic_last4": null
+          },
+          "client_ip": "120.101.43.86"
+        }
+    http_version: 
+  recorded_at: Thu, 23 Apr 2015 06:12:05 GMT
+- request:
+    method: post
+    uri: https://api.stripe.com/v1/customers
+    body:
+      encoding: US-ASCII
+      string: source=tok_15udZBD95LOA8PWpNHEh84OU&plan=basic&email=melvina%40krajcikraynor.net&description=Subscripttion%20of%20'Nathanial%20Wintheiser'
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      User-Agent:
+      - Stripe/v1 RubyBindings/1.18.0
+      Authorization:
+      - Bearer sk_test_HBGqICPTuTaM9AoQVEMs4DhY
+      Content-Type:
+      - application/x-www-form-urlencoded
+      X-Stripe-Client-User-Agent:
+      - '{"bindings_version":"1.18.0","lang":"ruby","lang_version":"2.1.5 p273 (2014-11-13)","platform":"x86_64-darwin14.0","publisher":"stripe","uname":"Darwin
+        wifi43-086.niu.edu.tw 13.4.0 Darwin Kernel Version 13.4.0: Wed Dec 17 19:05:52
+        PST 2014; root:xnu-2422.115.10~1/RELEASE_X86_64 x86_64"}'
+      Content-Length:
+      - '138'
+  response:
+    status:
+      code: 402
+      message: Payment Required
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Thu, 23 Apr 2015 06:12:06 GMT
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '134'
+      Connection:
+      - keep-alive
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Methods:
+      - GET, POST, HEAD, OPTIONS, DELETE
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Max-Age:
+      - '300'
+      Cache-Control:
+      - no-cache, no-store
+      Request-Id:
+      - req_xWGyqqoHD2pk81dZ
+      Stripe-Version:
+      - '2015-01-26'
+    body:
+      encoding: UTF-8
+      string: |
+        {
+          "error": {
+            "message": "Your card was declined.",
+            "type": "card_error",
+            "param": "",
+            "code": "card_declined"
+          }
+        }
+    http_version: 
+  recorded_at: Thu, 23 Apr 2015 06:12:07 GMT
+recorded_with: VCR 2.9.3
