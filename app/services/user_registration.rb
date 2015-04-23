@@ -43,28 +43,28 @@ class UserRegistration
         :description => "Sign up charge for #{user.email}."
       )
     end
-end
 
-class Success
-  attr_reader :message
+    class Success
+      attr_reader :message
 
-  def initialize(message)
-    @message = message
-  end
+      def initialize(message)
+        @message = message
+      end
 
-  def successful?
-    true
-  end
-end
+      def successful?
+        true
+      end
+    end
 
-class Failure
-  attr_reader :message
+    class Failure
+      attr_reader :message
 
-  def initialize(message)
-    @message = message
-  end
+      def initialize(message)
+        @message = message
+      end
 
-  def successful?
-    false
-  end
+      def successful?
+        false
+      end
+    end
 end

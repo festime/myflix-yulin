@@ -6,7 +6,7 @@ describe UserRegistration do
 
     before do
       charge = double('charge', successful?: true)
-      StripeWrapper::Charge.should_receive(:create).and_return(charge)
+      expect(StripeWrapper::Charge).to receive(:create).and_return(charge)
     end
 
     after { ActionMailer::Base.deliveries.clear }

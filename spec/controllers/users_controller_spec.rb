@@ -26,7 +26,7 @@ describe UsersController do
 
       before do
         result = double('result', successful?: true, message: "Successful!")
-        UserRegistration.any_instance.should_receive(:call).and_return(result)
+        expect_any_instance_of(UserRegistration).to receive(:call).and_return(result)
         post :create, user: user_params
       end
 
@@ -46,7 +46,7 @@ describe UsersController do
 
       before do
         result = double('result', successful?: false, message: "Failed!")
-        UserRegistration.any_instance.should_receive(:call).and_return(result)
+        expect_any_instance_of(UserRegistration).to receive(:call).and_return(result)
         post :create, user: user_params
       end
 
@@ -70,7 +70,7 @@ describe UsersController do
 
       before do
         result = double('result', successful?: false, message: "Failed!")
-        UserRegistration.any_instance.should_receive(:call).and_return(result)
+        expect_any_instance_of(UserRegistration).to receive(:call).and_return(result)
         post :create, user: user_params
       end
 
